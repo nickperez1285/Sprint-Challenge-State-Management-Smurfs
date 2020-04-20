@@ -7,7 +7,8 @@ return(
 	{list.map(smf =>
 	<p>name: {smf.name} <br/>
 		age: {smf.age}<br/>
-		height: {smf.height}
+	height: {smf.height}<br/>
+	id: {smf.id}
 	</p>
 	)}
 </div>

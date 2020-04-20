@@ -1,5 +1,6 @@
-import React, {useState} from 'react'
+import React, {useState, useContext } from 'react'
 import axios from 'axios';
+import {SmurfListObj} from "../contexts/SmurfListObj"
 
 const Form = () => {
 
@@ -11,6 +12,9 @@ const [smurf, setSmurf] = useState({
 
 })
 
+const {list, addS} = useContext(SmurfListObj)
+
+
 	const handleChanges = event => {
 		setSmurf({...smurf, [event.target.name]: event.target.value})
 	}
@@ -18,16 +22,22 @@ const [smurf, setSmurf] = useState({
 
 const submitForm = event =>{
 			event.preventDefault();
-			console.log('key',smurf.key)
-
   axios.post("http://localhost:3333/smurfs", smurf)
     .then(res =>{
-     console.log(res)
-          } 
+     console.log(res.data)
+
+     }
       )
     .catch(err =>{
       console.log(err)
     })
+setSmurf({
+	key: "",
+	name: "",
+	age: "", 
+	height: ""
+
+})
 
   }
 
@@ -61,7 +71,7 @@ const submitForm = event =>{
 				name ="height"
 				value = {smurf.height}
 				onChange = {handleChanges}
-			/>
+			/><br/>
 			<button type = "submit"> Add Smurf </button> 
 		</form>
 

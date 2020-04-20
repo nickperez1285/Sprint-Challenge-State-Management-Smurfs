@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState, useEffect  } from "react";
 import "./App.css";
 import {SmurfListObj} from "../contexts/SmurfListObj";
 import SmurfList from "./SmurfList"
@@ -7,31 +7,27 @@ import Form from "./Form"
 
 
 
+const App =  () => {
+
+const [list, setList] = useState([])
 
 
-class App extends Component {
-  state = {
-    list:[]
-  };
-  
-  componentDidMount(){
-
-  axios.get("http://localhost:3333/smurfs")
+useEffect(()=>{ 
+ axios.get("http://localhost:3333/smurfs")
     .then(res =>{
       const smurfs = res.data
-      this.setState({list:smurfs})
+      setList(smurfs)
           } 
       )
     .catch(err =>{
       console.log(err)
-    })
+    })}, 
 
-  }
+    [list])
 
 
-  render() { 
-    const list = this.state.list
 
+  
   
 
     return (
@@ -47,7 +43,8 @@ class App extends Component {
      </SmurfListObj.Provider>
 
     );
-}
+
+
   }
 
 
